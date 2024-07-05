@@ -43,7 +43,7 @@ Sur ma machine physique j’ai reussi a me connecter grâce à une clé publique
 
 #### 1. IMPORTANT -> en WebUI créé un "credential applicatif" avec les droits "member" puis télécharger le fichier clouds.yaml. Mettre ce fichier dans le dossier ~/.config/openstack/
 
-![Alt_text](images/img_p1_3.png)
+![Alt_text](images/img_p1_4.png)
 
 
 
