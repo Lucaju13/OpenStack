@@ -1,0 +1,123 @@
+---
+- name: Deploy OpenStack and WordPress
+  hosts: localhost
+  vars:
+    openstack_auth:
+      auth_url: http://10.202.0.96:5000
+      username: "lucaju13"
+      password: "Luc@as20001306"
+      project_id: bd1b2ae663cb40778eb4121859943c45
+      project_name: "lucaju_proj"
+      user_domain_name: "Default"
+
+  tasks:
+    - name: Create OpenStack network
+      openstack.cloud.network:
+        state: present
+        auth: "{{ openstack_auth }}"
+        name: reseau-ansible
+        external: no
+        shared: no
+
+    - name: Create subnet
+      openstack.cloud.subnet:
+        state: present
+        auth: "{{ openstack_auth }}"
+        network_name: reseau-ansible
+        name: sous-reseau-ansible
+        cidr: 192.168.100.0/24
+        gateway_ip: 192.168.100.1
+      register: subnet1
+
+    - name: Create router
+      os_router:
+        cloud: openstack
+        state: present
+        auth: "{{ openstack_auth }}"
+        name: router_ansible
+        network: public
+        interfaces:
+          - net: reseau-ansible
+            subnet: sous-reseau-ansible
+
+    - name: Launch OpenStack VM
+      openstack.cloud.server:
+        state: present
+        auth: "{{ openstack_auth }}"
+        name: ansible
+        flavor: m1.medium
+        image: debian-12
+        network: reseau-ansible
+        key_name: key
+        security_groups:
+          - nouu
+      ignore_errors: false
+      register: os_server_result
+
+    - name: Debug OS Server Result
+      debug:
+        var: os_server_result
+
+    - name: Wait for VM to be active
+      wait_for:
+        host: "{{ os_server_result.server.addresses['reseau-ansible'][1].addr }}"
+        port: 22
+        state: started
+        timeout: 300
+
+    - name: Add the new host to inventory
+      add_host:
+        name: "{{ os_server_result.server.name }}"
+        ansible_host: "{{ os_server_result.server.addresses['reseau-ansible'][1].addr }}"
+        ansible_user: debian
+        groups: wordpress_servers
+
+- name: Create WordPress installation directory on WordPress servers
+  hosts: wordpress_servers
+  become: true
+  tasks:
+    - name: Installer Apache
+      ansible.builtin.shell:
+        cmd: "sudo apt update && sudo apt install apache2 -y"
+
+    - name: Insaller MysQL
+      ansible.builtin.shell:
+        cmd: "sudo apt install mysql-server -y || apt install mariadb-server -y"
+
+    - name: Installer PHP
+      ansible.builtin.shell:
+        cmd: "sudo apt install php -y || apt install php7.2 -y"
+
+    - name: Create WordPress installation directory
+      ansible.builtin.file:
+        path: "/home/debian/wordpress/installation"
+        state: directory
+
+    - name: Download WordPress tarball
+      ansible.builtin.shell: >
+        wget https://wordpress.org/latest.tar.gz -P /home/debian/wordpress/installation
+      args:
+        executable: /bin/bash
+        chdir: "/home/debian/wordpress/installation"
+
+    - name: Extract WordPress tarball
+      ansible.builtin.shell: >
+        tar -xzvf /home/debian/wordpress/installation/latest.tar.gz -C /home/debian/wordpress/installation
+      args:
+        executable: /bin/bash
+
+    - name: Move WordPress directory to installation directory
+      ansible.builtin.shell: >
+        cp -r /home/debian/wordpress/installation/wordpress /var/www/html/
+      args:
+        executable: /bin/bash
+    
+    - name: Installer Wordpress
+      ansible.builtin.shell:
+        cmd: "apt install wordpress -y"
+    
+    - name: Restart services
+      ansible.builtin.shell: 
+        cmd: "sudo a2enmod rewrite && sudo systemctl restart apache2.service "
+      args:
+        executable: /bin/bash
