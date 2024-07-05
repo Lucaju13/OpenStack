@@ -26,7 +26,7 @@ Ajout d'une Floating IP (réseau public2) et on se logge en SSH
 
 ![Alt_text](images/img_p0_4.png)
 
-*Floating IP:*
+_Floating IP:_
 
 ![Alt_text](images/img_p1_1.png)
 
