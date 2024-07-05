@@ -84,7 +84,11 @@ openstack server add floating ip instance_2 194.199.113.229
 Check si @ip était prise:
 ![Alt_text](images/img_p3_4.png)
 
+Test de connexion à la machine en ssh:
+![Alt_text](images/img_p4_1.png)
 
+### Partie III - Wordpress avec une VM Web et une VM SQL à l'aide de HEAT
+[Lien vers le script de deployment) (scripts/ansible.yaml)
 
 
 
