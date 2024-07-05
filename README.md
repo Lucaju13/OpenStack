@@ -35,7 +35,7 @@ Ajout d'une Floating IP (réseau public2) et on se logge en SSH**
 
 _**Test de connexion via SSH sur l'adresse public de l'instance crée:**_
 
-![Alt_text](images/img_p2_1.png)
+![Alt_text](images/img_p1_3.png)
 
 Sur ma machine physique j’ai reussi a me connecter grâce à une clé publique que j’ai généré avec la commande _**ssh-keygen**_. Après la génération de clé publique j’ai importé le fichier lors de la création de mon instance. Ensuite j’ai attaché mon instance à une adresse publique et j’ai réussi à me connecter en ssh.
 
@@ -43,7 +43,7 @@ Sur ma machine physique j’ai reussi a me connecter grâce à une clé publique
 
 #### 1. IMPORTANT -> en WebUI créé un "credential applicatif" avec les droits "member" puis télécharger le fichier clouds.yaml. Mettre ce fichier dans le dossier ~/.config/openstack/
 
-![Alt_text](images/img_p1_4.png)
+![Alt_text](images/img_p2_1.png)
 
 
 
