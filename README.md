@@ -53,7 +53,7 @@ https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-comman
 
 ![Alt_text](images/img_p2_2.png)
 
-3. Exo1 en CLI
+**3. Exo1 en CLI**
 - Génération d’une clé:
 
 ![Alt_text](images/img_p2_3.png)
@@ -66,6 +66,7 @@ nouvelle_cle --security-group ssh --security-group default instance_2
 ![Alt_text](images/img_p3_1.png)
 
 **Verification:**
+
 ![Alt_text](images/img_p3_2.png)
 
 **Ajout d'une Floating IP (réseau public2) :**
@@ -82,6 +83,7 @@ Commande pour ajouter ip:
 openstack server add floating ip instance_2 194.199.113.229
 ```
 Check si @ip était prise:
+
 ![Alt_text](images/img_p3_4.png)
 
 Test de connexion à la machine en ssh:
@@ -91,6 +93,7 @@ Test de connexion à la machine en ssh:
 [Lien vers le script de deployment](scripts/deployment.yaml)
 
 **SERVEUR WEB**
+
 ![Alt_text](images/img_p4_2.png)
 
 ![Alt_text](images/img_p4_3.png)
