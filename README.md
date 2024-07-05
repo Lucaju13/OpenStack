@@ -59,16 +59,20 @@ https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-comman
 ![Alt_text](images/img_p2_3.png)
 
 **Création d’une instance:**
+```cmd
 openstack server create --flavor m1.medium --image CentOS-Stream-9-20220914 --key-name
 nouvelle_cle --security-group ssh --security-group default instance_2
-
+```
 ![Alt_text](images/img_p3_1.png)
 
 **Verification:**
 ![Alt_text](images/img_p3_2.png)
 
 **Ajout d'une Floating IP (réseau public2) :**
+
+```cmd
 openstack floating ip create public2
+```
 
 ![Alt_text](images/img_p3_3.png)
 
