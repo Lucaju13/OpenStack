@@ -10,3 +10,5 @@
 sudo chown test: clouds.yaml
 ```
 1 - Création / Ajout d'une clef ssh dans votre projet
+
+![Alt_text](../images/img_p0_1.png)
