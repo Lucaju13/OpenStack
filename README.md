@@ -45,5 +45,42 @@ Sur ma machine physique j’ai reussi a me connecter grâce à une clé publique
 
 ![Alt_text](images/img_p2_1.png)
 
+![Alt_text](images/img_p2_2.png)
+
+2. Installer la CLI OpenStack sur votre machine
+
+https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html
+
+![Alt_text](images/img_p2_2.png)
+
+3. Exo1 en CLI
+- Génération d’une clé:
+
+![Alt_text](images/img_p2_3.png)
+
+**Création d’une instance:**
+openstack server create --flavor m1.medium --image CentOS-Stream-9-20220914 --key-name
+nouvelle_cle --security-group ssh --security-group default instance_2
+
+![Alt_text](images/img_p3_1.png)
+
+**Verification:**
+![Alt_text](images/img_p3_2.png)
+
+**Ajout d'une Floating IP (réseau public2) :**
+openstack floating ip create public2
+
+![Alt_text](images/img_p3_3.png)
+
+Commande pour ajouter ip: 
+
+```cmd
+openstack server add floating ip instance_2 194.199.113.229
+```
+Check si @ip était prise:
+![Alt_text](images/img_p3_4.png)
+
+
+
 
 
